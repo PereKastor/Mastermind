@@ -26,12 +26,19 @@ namespace decoration {
 	ostream& erreur_entree(ostream &os) {
 		return os << "Combinaison erronnee.";
 	}
+
 	Combinaison lire_combinaison(istream &is, ostream &os) {
 		os << lister_options << '\n' << invite;
 		Combinaison c;
 		while (!(is >> c))
 			os << erreur_entree << invite;
 		return c;
+	}
+
+	ostream& operator<<(ostream &flux, Mastermind const& mm)
+	{
+		flux << "test";
+		return flux;
 	}
 }
 
