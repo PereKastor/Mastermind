@@ -37,7 +37,14 @@ namespace decoration {
 
 	ostream& operator<<(ostream &flux, Mastermind const& mm)
 	{
-		flux << "test";
+		if(mm.partie_perdue())
+		{
+			flux << "Vous n'avez pas reussi a terminer la partie. La bonne combinaison etait : " + mm.get_final_combinaison() + ". Merci d'avoir joue.";
+		}
+		else
+		{
+			flux << "Vous avez termine la partie en " << mm.get_nb_essais() << " essais. Merci d'avoir joue.";
+		}
 		return flux;
 	}
 }
@@ -53,4 +60,5 @@ int main() {
 		cout << mm.essayer(c) << endl << endl;
 	}
 	cout << mm << endl;
+	system("pause");
 }

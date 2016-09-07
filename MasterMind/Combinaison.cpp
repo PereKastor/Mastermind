@@ -44,12 +44,60 @@ void Combinaison::generate_random_combi()
 	this->combi_[ 3 ].set_color(static_cast<Pinouche::Couleurs>(get_rand()));
 }
 
+int compare_index(const Pinouche& p, const Pinouche combi[ 4 ], int index)
+{
+	return p.get_color() == combi[ index ].get_color();
+}
+
+std::string Combinaison::compare_combi(const Combinaison& combi) const
+{
+	int gcp = 0;
+	int gcnp = 0;
+	int locked_index[ 4 ]{ 0 };
+	for(int i = 0; i < NB_PINOUCHES; i++)
+	{
+		if(this->combi_[ i ].get_color() == combi.combi_[ i ].get_color())
+		{
+			gcp++;
+			locked_index[ i ] = 1;
+		}
+	}
+
+	for(int j = 0; j < NB_PINOUCHES; j++)
+	{
+		if(locked_index[ j ] != 1)
+		{
+			for(int k = 0; k < NB_PINOUCHES; k++)
+			{
+				if(locked_index[ k ] != 1)
+				{
+					if(this->combi_[ j ].get_color() == combi.combi_[ k ].get_color())
+					{
+						gcnp++;
+					}
+				}
+			}
+		}
+	}
+	return "Tu as actullement " + std::to_string(gcp) + " pinouches bien placees et de la bonne couleur,\n " + std::to_string(gcnp) + " pinouches de la bonne couleur mais pas au bon endroit";
+}
+
+std::string Combinaison::get_combi_to_display() const
+{
+	std::string result = Pinouche::ctos(static_cast<Pinouche::Couleurs>(combi_[0].get_color()));
+	result += " " + Pinouche::ctos(static_cast<Pinouche::Couleurs>(combi_[ 1 ].get_color()));
+	result += " " + Pinouche::ctos(static_cast<Pinouche::Couleurs>(combi_[ 2 ].get_color()));
+	result += " " + Pinouche::ctos(static_cast<Pinouche::Couleurs>(combi_[ 3 ].get_color()));
+	return result;
+}
+
+
 int Combinaison::get_rand()
 {
 	return rand() % (Pinouche::NB_COLORS - 1);
 }
 
-std::istream& operator>>(std::istream& flux, Combinaison& combi)
+std::istream& operator >> (std::istream& flux, Combinaison& combi)
 {
 	char temp1;
 	char temp2;

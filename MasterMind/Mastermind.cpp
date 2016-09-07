@@ -6,16 +6,24 @@ Mastermind::Mastermind()
 	finalCombinaison_.generate_random_combi();
 }
 
-std::string Mastermind::essayer(const Combinaison& combinaison)
+std::string Mastermind::essayer(Combinaison& combinaison)
 {
+	++nbEssai_;
 	if(combinaison == finalCombinaison_)
 	{
 		game_win = true;
+		combinaison.set_is_good(true);
 		return "Congrats";
 	}
+	else
+	{
+		return combinaison.compare_combi(finalCombinaison_);
+	}
+}
 
-
-	return "You fail";
+std::string Mastermind::get_final_combinaison() const
+{
+	return finalCombinaison_.get_combi_to_display();
 }
 
 bool Mastermind::partie_perdue() const

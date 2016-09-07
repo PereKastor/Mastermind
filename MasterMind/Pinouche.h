@@ -32,7 +32,7 @@ public:
 	}
 	Couleurs static stoc(char c)
 	{
-		switch (c)
+		switch(toupper(c))
 		{
 		case 'B':
 			return Blue;
@@ -50,6 +50,29 @@ public:
 			return Purple;
 		default:
 			return Blue;
+		}
+	}
+
+	std::string static ctos(Couleurs c)
+	{
+		switch(c)
+		{
+		case Blue:
+			return "Blue";
+		case Green:
+			return "Green";
+		case Red:
+			return "Red";
+		case Yellow:
+			return "Yellow";
+		case White:
+			return "White";
+		case Orange:
+			return "Orange";
+		case Purple:
+			return "Purple";
+		default:
+			return "";
 		}
 	}
 private :
